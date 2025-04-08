@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: devathib
+  name: devthib
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devthib
+    metadata:
+      labels:
+        app: devthib
+    spec:
+      containers:
+      - image: replace
+        name: devthib-container
+        ports:
+        - containerPort: 80  
+        volumeMounts:
+        - mountPath: /tmp
+          name: vol
+      volumes:
+      - name: vol
+        emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: devthib
+  name: devthib-svc
+spec:
+  type: NodePort
+  selector:
+    app: devthib
+  ports:
+  - port: 8888          
+    targetPort: 80      
+    protocol: TCP

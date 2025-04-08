@@ -34,7 +34,7 @@ pipeline {
         withKubeConfig([credentialsId: 'KuberneteThib']) {
             script {
                 // This forces Kubernetes to restart the deployment and pull the latest image
-                sh 'kubectl rollout restart deployment devachraf'
+                sh 'kubectl rollout restart deployment devthib'
             }
         }
     }

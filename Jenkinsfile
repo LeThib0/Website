@@ -19,16 +19,26 @@ pipeline {
             }
         }
     }
-			//---------------------------------------
-			   	stage('kubernetes version') {
-			        		steps {   
-			        		    withKubeConfig([credentialsId: 'KuberneteThib']) {
-			        		    	sh 'kubectl version --client'  	
-			        		    }
-			        		}
-			    	}
-			//---------------------------------------
- 
- 
-	}
+			stage('Kubernetes Deployment') {
+        steps {
+            withKubeConfig([credentialsId: 'KuberneteThib']) {
+                script {
+                    sh "sed -i 's#replace#hrefnhailthib432/devops-mywebsite:$LOCAL_TAG#g' k8s_deployment_service.yaml"
+                    sh 'kubectl apply -f k8s_deployment_service.yaml'
+                }
+            }
+        }
+    }
+    stage('Force Rollout Restart') {
+    steps {
+        withKubeConfig([credentialsId: 'KuberneteThib']) {
+            script {
+                // This forces Kubernetes to restart the deployment and pull the latest image
+                sh 'kubectl rollout restart deployment devachraf'
+            }
+        }
+    }
+}
+
+}
 }

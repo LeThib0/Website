@@ -22,7 +22,7 @@ pipeline {
 			//---------------------------------------
 			   	stage('kubernetes version') {
 			        		steps {   
-			        		    withKubeConfig([credentialsId: 'nouveau document texte']) {
+			        		    withKubeConfig([credentialsId: 'KuberneteThib']) {
 			        		    	sh 'kubectl version --client'  	
 			        		    }
 			        		}

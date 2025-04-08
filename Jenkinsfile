@@ -23,7 +23,7 @@ pipeline {
         steps {
             withKubeConfig([credentialsId: 'KuberneteThib']) {
                 script {
-                    sh "sed -i 's#replace#hrefnhailthib432/devops-mywebsite:$LOCAL_TAG#g' k8s_deployment_service.yaml"
+                    sh "sed -i 's#replace#hrefnhailthib432/devops-mywebsite:v1' k8s_deployment_service.yaml"
                     sh 'kubectl apply -f k8s_deployment_service.yaml'
                 }
             }

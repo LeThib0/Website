@@ -8,14 +8,14 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: devthib  # Pas de metadata, juste des matchLabels
-  template:  # Vous devez encapsuler les containers sous "template.spec"
+      app: devthib 
+  template:  
     metadata:
       labels:
         app: devthib
     spec:
       containers:
-      - image: replace  # Remplacera "replace" par l'image réelle dans votre pipeline
+      - image: replace 
         name: devthib-container
         ports:
         - containerPort: 80

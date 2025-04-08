@@ -38,6 +38,6 @@ spec:
   selector:
     app: devthib
   ports:
-  - port: 8888          
-    targetPort: 80      
+  - port: 9999  
+    targetPort: 80
     protocol: TCP

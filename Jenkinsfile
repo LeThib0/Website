@@ -20,15 +20,16 @@ pipeline {
         }
     }
 			stage('Kubernetes Deployment') {
-        steps {
-            withKubeConfig([credentialsId: 'KuberneteThib']) {
-                script {
-                    sh "sed -i -e 's#replace#thib432/devops-mywebsite:v1' k8s_deployment_service.yaml"
-                    sh 'kubectl apply -f k8s_deployment_service.yaml'
-                }
+    steps {
+        withKubeConfig([credentialsId: 'KuberneteThib']) {
+            script {
+                // Utilisation de guillemets doubles pour éviter les erreurs d'interprétation
+                sh "sed -i \"s#replace#thib432/devops-mywebsite:v1#g\" k8s_deployment_service.yaml"
+                sh 'kubectl apply -f k8s_deployment_service.yaml'
             }
         }
     }
+}
     stage('Force Rollout Restart') {
     steps {
         withKubeConfig([credentialsId: 'KuberneteThib']) {
